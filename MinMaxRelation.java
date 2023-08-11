@@ -3,34 +3,31 @@ public class MinMaxRelation {
 
 
 
-    private static int solve(int[] arr,int start, int end, int ogSize){
+    private static int solve(int[] arr){
 
-        if(end-start+1 == 1)
-            return ogSize-1;
+        int max_subarray = 0;
+        for(int i=0; i< arr.length && arr.length-i >max_subarray;i++){
 
-        int min = 0;
-        int max = 0;
+            int min = arr[i];
+            int max  = arr[i];
 
-        for(int i=start; i<end; i++){
-            if(arr[i]<arr[min])
-                min = i;
-            else if(arr[i]> arr[max])
-                max = i;
+            for(int j=i;j<arr.length;j++)
+            {
+                min = Integer.min(min,arr[j]);
+                max = Integer.max(max,arr[j]);
+
+                if(2*min<=max)
+                {
+                    break;
+                }
+                max_subarray = Integer.max(max_subarray,j-i+1);
+            }
         }
-
-        if(2*arr[min] > arr[max])
-            return ogSize - end + start;
-        else
-        {
-            return minimum(solve(arr,start,min-1,ogSize), solve(arr,min+1,end,ogSize) );
-        }
+    return arr.length - max_subarray;
     }
 
-    private static int minimum(int a, int b) {
-        return a<b?a:b;
-    }
 
     public static void main(String[] args) {
-        System.out.println(solve(new int[]{4, 6, 1, 7, 5, 9, 2},0,4,5));
+        System.out.println(solve(new int[]{4, 6, 1, 7, 5, 9, 2}));
     }
 }
