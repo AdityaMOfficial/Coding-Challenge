@@ -21,18 +21,16 @@ public class KeypadCombinations {
         String currentInputString = keypad.get(input[inputArrayIndex]);
 
         for(int i=0;i<currentInputString.length();i++){
-            currentOutput = (inputArrayIndex==INITIAL_INDEX?"":currentOutput.substring(INITIAL_INDEX,inputArrayIndex)) + currentInputString.charAt(i);
-            solveRec(input,inputArrayIndex+1,currentOutput);
+            solveRec(input,inputArrayIndex+1,currentOutput + currentInputString.charAt(i));
         }
 
     }
 
     public static void main(String[] args) {
 
-        int input[] = new int[]{2,3,4,9};
-        int op[] = new int[input.length];
+        int input[] = new int[]{2,3,4};
         String output = "";
         solveRec(input, INITIAL_INDEX, output);
-        System.out.println(output);
+        System.out.println(KeypadCombinations.output);
     }
 }
